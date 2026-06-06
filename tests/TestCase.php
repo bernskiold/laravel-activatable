@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Bernskiold\\LaravelActivatable\\Tests\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Bernskiold\\LaravelActivatable\\Tests\\Factories\\'.class_basename($modelName).'Factory'
         );
 
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');

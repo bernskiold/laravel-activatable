@@ -1,6 +1,6 @@
 <?php
 
-namespace Bernskiold\LaravelActivatable\Tests\Database\Factories;
+namespace Bernskiold\LaravelActivatable\Tests\Factories;
 
 use Bernskiold\LaravelActivatable\Concerns\ActivatableFactory;
 use Bernskiold\LaravelActivatable\Tests\Models\Page;
