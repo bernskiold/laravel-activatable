@@ -2,6 +2,7 @@
 
 use Bernskiold\LaravelActivatable\Tests\Models\Post;
 use Bernskiold\LaravelActivatable\Tests\Models\Widget;
+use Illuminate\Support\Facades\DB;
 
 it('defaults new models to active', function () {
     $post = Post::create(['title' => 'Hello']);
@@ -74,6 +75,17 @@ it('supports a custom active column via constant', function () {
 
     expect($widget->fresh()->is_enabled)->toBeFalse()
         ->and(Widget::active()->count())->toBe(0);
+});
+
+it('does not issue a write when the state is already as requested', function () {
+    $post = Post::create(['title' => 'Hello']);
+
+    DB::enableQueryLog();
+    DB::flushQueryLog();
+
+    $post->activate();
+
+    expect(DB::getQueryLog())->toBeEmpty();
 });
 
 it('honours the configured default active value', function () {

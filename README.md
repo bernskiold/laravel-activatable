@@ -65,6 +65,12 @@ $post->toggleActive();
 
 $post->activateQuietly();   // no model events, no Activatable events
 $post->deactivateQuietly();
+```
+
+Calling `activate()` / `deactivate()` on a model that is already in the
+requested state is a no-op — no write is issued and no event is dispatched.
+
+```php
 
 Post::active()->get();      // only active
 Post::inactive()->get();    // only inactive

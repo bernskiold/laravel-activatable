@@ -74,9 +74,17 @@ trait Activatable
 
     protected function setActiveState(bool $active, bool $quietly = false): static
     {
-        $wasActive = $this->exists ? $this->isActive() : null;
+        $column = $this->getActiveColumn();
 
-        $this->{$this->getActiveColumn()} = $active;
+        // Already persisted in the desired state with no pending change: no-op,
+        // so we avoid a redundant write and a misleading event.
+        if ($this->exists && ! $this->isDirty($column) && $this->isActive() === $active) {
+            return $this;
+        }
+
+        $wasActive = $this->exists ? (bool) $this->getOriginal($column) : null;
+
+        $this->{$column} = $active;
 
         if ($this->tracksInactivatedAt()) {
             $this->{$this->getInactivatedAtColumn()} = $active ? null : $this->freshTimestamp();
