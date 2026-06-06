@@ -4,7 +4,6 @@ namespace Bernskiold\LaravelActivatable\Concerns;
 
 use Bernskiold\LaravelActivatable\Events\ModelActivated;
 use Bernskiold\LaravelActivatable\Events\ModelDeactivated;
-use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -99,14 +98,12 @@ trait Activatable
         return $this;
     }
 
-    #[Scope]
-    protected function active(Builder $query, bool $active = true): Builder
+    public function scopeActive(Builder $query, bool $active = true): Builder
     {
         return $query->where($query->qualifyColumn($this->getActiveColumn()), $active);
     }
 
-    #[Scope]
-    protected function inactive(Builder $query, bool $inactive = true): Builder
+    public function scopeInactive(Builder $query, bool $inactive = true): Builder
     {
         return $query->where($query->qualifyColumn($this->getActiveColumn()), ! $inactive);
     }
