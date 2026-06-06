@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-activatable` will be documented in this file.
 
+## 1.0.0 - 2026-06-06
+
+**Full Changelog**: https://github.com/bernskiold/laravel-activatable/commits/1.0.0
+
 ## Unreleased
 
 - Initial release.
